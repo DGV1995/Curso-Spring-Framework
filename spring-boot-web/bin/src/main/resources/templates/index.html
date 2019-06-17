@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- Necesario para poder usar thymeleaf! -->
+<head>
+<meta charset="UTF-8"/>
+<title th:text="${titulo}"></title> <!-- Pasamos el título de la plantilla desde el controlador -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"></link>
+</head>
+<body>
+	<h1 class="color-rojo" th:text="${titulo}"></h1>
+	<h2 class="color-azul">Decorando con estilos css</h2>
+	<img th:src="@{/images/word1.png}"></img>
+</body>
+</html>
