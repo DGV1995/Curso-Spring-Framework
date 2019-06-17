@@ -17,7 +17,7 @@ public class IndexController {
 	private String textIndex;
 	
 	// Indicamos cuál es el @Component que queremos inyectar
-	@Qualifier("miServicioComplejo")
+	@Qualifier("miServicioSimple")
 	@Autowired
 	private ServiceInterface myService;
 	
