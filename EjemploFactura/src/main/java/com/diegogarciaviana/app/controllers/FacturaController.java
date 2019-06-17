@@ -27,12 +27,5 @@ public class FacturaController {
 		return "factura/ver";
 		
 	}
-	
-	/*@PostMapping("/add")
-	public void registrarProducto(@RequestBody ItemFactura item) {
-		
-		factura.getItems().add(item);
-		
-	}*/
 
 }
