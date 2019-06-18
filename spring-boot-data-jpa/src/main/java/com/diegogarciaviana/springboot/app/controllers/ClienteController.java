@@ -17,17 +17,14 @@ import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 public class ClienteController {
 	
 	@Autowired
-	@Qualifier("clienteDaoJpa")
 	private InterfaceClienteDAO clienteDao;
 	
 	@GetMapping("/listar")
 	public String listar(Model model) {
 		
 		model.addAttribute("titulo", "Listado de clientes");
-		
-		List<Cliente> clientes = clienteDao.findAll();
-		
-		model.addAttribute("clientes", clientes);
+				
+		model.addAttribute("clientes", clienteDao.findAll());
 		
 		return "listar";
 		

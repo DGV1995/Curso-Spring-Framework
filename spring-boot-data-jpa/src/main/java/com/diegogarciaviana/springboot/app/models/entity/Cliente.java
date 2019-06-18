@@ -26,7 +26,7 @@ public class Cliente implements Serializable {
 
 	private String nombre;
 	private String apellido;
-	private String name;
+	private String email;
 
 	@Column(name = "create_at") // Para indicar el nombre de la columna
 	@Temporal(TemporalType.DATE) // Indica el formato de la fecha
@@ -56,12 +56,12 @@ public class Cliente implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public String getName() {
-		return name;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getCreateAt() {
