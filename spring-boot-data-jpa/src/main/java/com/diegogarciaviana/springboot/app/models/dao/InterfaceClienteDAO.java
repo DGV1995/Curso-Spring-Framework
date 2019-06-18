@@ -9,5 +9,6 @@ import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 public interface InterfaceClienteDAO {
 	
 	public List<Cliente> findAll();
+	public Cliente findById(Long id);
  
 }

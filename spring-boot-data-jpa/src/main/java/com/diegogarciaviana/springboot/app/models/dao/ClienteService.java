@@ -13,14 +13,21 @@ import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 @Repository
 public class ClienteService implements InterfaceClienteDAO {
 	
+	// Servicio que gestiona las manipulaciones sobre la base de datos
+	
 	@PersistenceContext
 	private EntityManager em;
 
-	@SuppressWarnings("unchecked")
-	@Transactional(readOnly = true)
+	/*@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)*/
 	@Override
 	public List<Cliente> findAll() {
+		// Retorna los registros que se han insertado en el archivo import.sql
 		return em.createQuery("from Cliente").getResultList();
+	}
+	
+	public Cliente findById(Long id) {
+		return em.find(Cliente.class, id);
 	}
 
 }
