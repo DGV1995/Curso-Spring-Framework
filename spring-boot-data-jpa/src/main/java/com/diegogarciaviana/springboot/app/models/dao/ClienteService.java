@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 
 @Repository
-public class ClienteDaoImplementation implements InterfaceClienteDAO {
+public class ClienteService implements InterfaceClienteDAO {
 	
 	@PersistenceContext
 	private EntityManager em;
