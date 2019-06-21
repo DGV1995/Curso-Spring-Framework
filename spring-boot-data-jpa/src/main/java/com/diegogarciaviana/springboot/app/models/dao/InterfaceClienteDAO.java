@@ -10,5 +10,6 @@ public interface InterfaceClienteDAO {
 	
 	public List<Cliente> findAll();
 	public Cliente findById(Long id);
+	public void save(Cliente cliente);
  
 }
