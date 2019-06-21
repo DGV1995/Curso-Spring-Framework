@@ -1,9 +1,12 @@
 package com.diegogarciaviana.springboot.app.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +25,7 @@ public class ClienteController {
 	
 	@Value("${listar.title}")
 	private String listar_titulo;
+	
 	@Value("${formulario.title}")
 	private String formulario_titulo;
 	
@@ -47,7 +51,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/form")
-	public String save(Model model) {
+	public String formulario(Model model) {
 		
 		Cliente cliente = new Cliente();
 
@@ -58,8 +62,16 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/form")
-	public String guardar(Cliente cliente) {
+	/** Con el decorador @Valid nos aseguramos de que el objecto Cliente tenga un formato válido (acorda a los requisitos configurados en la clase Cliente) **/
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", formulario_titulo);
+			return "form";
+		}
+		
 		clienteDao.save(cliente);
+		
 		return "redirect:listar";
 	}
 

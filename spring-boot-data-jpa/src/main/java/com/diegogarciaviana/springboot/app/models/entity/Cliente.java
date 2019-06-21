@@ -12,8 +12,13 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "clientes") // Para configurar el nombre de la tabla
@@ -25,12 +30,23 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	/** Reglas de validación **/
+	
+	@NotEmpty //@NotEmpty se utiliza solo con strings
+	// @Size(min = 4, max = 12)
 	private String nombre;
+	
+	@NotEmpty
 	private String apellido;
+	
+	@NotEmpty
+	@Email // Validar que tenga el formato de email
 	private String email;
 
 	@Column(name = "create_at") // Para indicar el nombre de la columna
 	@Temporal(TemporalType.DATE) // Indica el formato de la fecha
+	@DateTimeFormat(pattern="dd/MM/yyyy") // Especificar el formato de la fecha
+	@NotNull // Para los atributos que no sean strings
 	private Date createAt;
 	
 	/**
