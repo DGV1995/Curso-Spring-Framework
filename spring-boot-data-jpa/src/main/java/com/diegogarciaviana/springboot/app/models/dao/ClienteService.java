@@ -27,14 +27,19 @@ public class ClienteService implements InterfaceClienteDAO {
 	}
 	
 	@Override
-	public Cliente findById(Long id) {
-		return em.find(Cliente.class, id);
+	@Transactional
+	public void save(Cliente cliente) {
+		// Si el cliente ya existe (id != null), lo actualiza (merge)
+		if (cliente.getId() != null && cliente.getId() > 0)
+			em.merge(cliente);
+		// Si no existe, crea uno nuevo (persist) ==> El id viene null por defecto
+		else if (cliente.getId() > 0)
+			em.persist(cliente);
 	}
 	
 	@Override
-	@Transactional
-	public void save(Cliente cliente) {
-		em.persist(cliente);
+	public Cliente findOne(Long id) {
+		return em.find(Cliente.class, id);
 	}
 
 }

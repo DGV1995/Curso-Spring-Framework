@@ -9,7 +9,7 @@ import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 public interface InterfaceClienteDAO {
 	
 	public List<Cliente> findAll();
-	public Cliente findById(Long id);
 	public void save(Cliente cliente);
+	public Cliente findOne(Long id);
  
 }
