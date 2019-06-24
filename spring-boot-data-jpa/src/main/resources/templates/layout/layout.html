@@ -35,21 +35,19 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container">
-		
-	</div>
 	
 	<footer th:fragment="footer" class="container"> <!-- Hacemos la plantilla del footer -->
 	
 		<hr/>
 		<img th:src="@{/images/spring-framework.png}" alt="Spring logo"/>
 		
-		<!-- Scripts de bootstrap -->
-		<script th:href="@{/js/bootstrap.min.js"></script>
+		<!-- Script de bootstrap -->
+		<script th:src="@{/js/bootstrap.min.js}"></script>
 		<!-- jQuery y Popper.js -->
-		<script th:href="@{/js/jquery-3.3.1.min.js"></script>
-		<script th:href="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
 			
 	</footer>
+	
 </body>
 </html>
