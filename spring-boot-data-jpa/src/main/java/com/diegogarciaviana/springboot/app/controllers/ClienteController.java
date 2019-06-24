@@ -59,7 +59,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/form")
-	/** Con el decorador @Valid nos aseguramos de que el objecto Cliente tenga un formato válido (acorda a los requisitos configurados en la clase Cliente) **/
+	/** Con el decorador @Valid nos aseguramos de que el objecto Cliente tenga un formato válido (acorde a los requisitos configurados en la clase Cliente) **/
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus status) {
 		
 		if (result.hasErrors()) {
