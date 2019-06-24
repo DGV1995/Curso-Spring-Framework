@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.diegogarciaviana.springboot.app.models.dao.InterfaceClienteDAO;
+import com.diegogarciaviana.springboot.app.models.dao.IClienteDao;
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
+import com.diegogarciaviana.springboot.app.models.service.IClienteService;
 
 @Controller
 @RequestMapping("/clientes")
@@ -25,7 +27,7 @@ import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 public class ClienteController {
 	
 	@Autowired
-	private InterfaceClienteDAO clienteDao;
+	private IClienteService clienteService;
 	
 	@Value("${listar.title}")
 	private String listar_titulo;
@@ -41,7 +43,7 @@ public class ClienteController {
 		
 		model.addAttribute("titulo", listar_titulo);
 				
-		model.addAttribute("clientes", clienteDao.findAll());
+		model.addAttribute("clientes", clienteService.findAll());
 		
 		return "listar";
 		
@@ -67,10 +69,10 @@ public class ClienteController {
 			return "form";
 		}
 		
-		clienteDao.save(cliente);
+		clienteService.save(cliente);
 		status.setComplete();
 		
-		return "redirect:listar";
+		return "redirect:/clientes/listar";
 	}
 	
 	@GetMapping("/form/{id}")
@@ -79,7 +81,7 @@ public class ClienteController {
 		Cliente cliente = null;
 		
 		if (id > 0) 
-			cliente = clienteDao.findOne(id);
+			cliente = clienteService.findOne(id);
 		
 		else
 			return "redirect:listar";
@@ -88,6 +90,21 @@ public class ClienteController {
 		model.addAttribute("titulo", editar_titulo);
 		
 		return "form";
+		
+	}
+	
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable Long id, Model model) {
+		
+		// Eliminamos cliente de la base de datos
+		if (id > 0)
+			clienteService.delete(id);
+		
+		// Pasamos los clientes que quedan a la vista
+		model.addAttribute("clientes", clienteService.findAll());
+		model.addAttribute("titulo", listar_titulo);
+		
+		return "redirect:/clientes/listar";
 		
 	}
 
