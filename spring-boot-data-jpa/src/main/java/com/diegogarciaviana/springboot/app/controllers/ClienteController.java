@@ -42,7 +42,6 @@ public class ClienteController {
 	public String listar(Model model) {
 		
 		model.addAttribute("titulo", listar_titulo);
-				
 		model.addAttribute("clientes", clienteService.findAll());
 		
 		return "listar";
