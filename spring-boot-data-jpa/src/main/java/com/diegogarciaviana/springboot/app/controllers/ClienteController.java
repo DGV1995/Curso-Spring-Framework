@@ -54,7 +54,7 @@ public class ClienteController {
 		
 		model.addAttribute("titulo", listar_titulo);
 		model.addAttribute("clientes", clientes);
-		model.addAttribute("page", pageRequest);
+		model.addAttribute("page", pageRender);
 		
 		return "listar";
 		

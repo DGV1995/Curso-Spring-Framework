@@ -64,10 +64,6 @@ public class PageRender<T> {
 		return totalPaginas;
 	}
 
-	public int getNumElementosPorPagina() {
-		return numElementosPorPagina;
-	}
-
 	public int getPaginaActual() {
 		return paginaActual;
 	}
