@@ -4,6 +4,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,15 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.diegogarciaviana.springboot.app.models.dao.IClienteDao;
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 import com.diegogarciaviana.springboot.app.models.service.IClienteService;
+import com.diegogarciaviana.springboot.app.util.paginator.PageRender;
 
 @Controller
-@RequestMapping("/clientes")
 @SessionAttributes("cliente")
 public class ClienteController {
 	
@@ -39,10 +44,17 @@ public class ClienteController {
 	private String editar_titulo;
 	
 	@GetMapping("/listar")
-	public String listar(Model model) {
+	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
+		
+		// Creamos objeto Pegeable ==> implementa la paginación
+		Pageable pageRequest = PageRequest.of(page, 5);
+		Page<Cliente> clientes = clienteService.findAll(pageRequest);
+		
+		PageRender<Cliente> pageRender = new PageRender<>("/listar", clientes);
 		
 		model.addAttribute("titulo", listar_titulo);
-		model.addAttribute("clientes", clienteService.findAll());
+		model.addAttribute("clientes", clientes);
+		model.addAttribute("page", pageRequest);
 		
 		return "listar";
 		
@@ -61,29 +73,41 @@ public class ClienteController {
 	
 	@PostMapping("/form")
 	/** Con el decorador @Valid nos aseguramos de que el objecto Cliente tenga un formato válido (acorde a los requisitos configurados en la clase Cliente) **/
-	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus status) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes flash, SessionStatus status) {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", formulario_titulo);
 			return "form";
 		}
 		
+		// Definir el mensaje flash en función de si se ha creado un nuevo cliente o se ha editado uno ya existente
+		String mensajeFlash = (cliente.getId() != null)? "Cliente editado con éxito!" : "Cliente creado con éxito!";
+		
 		clienteService.save(cliente);
 		status.setComplete();
+		
+		flash.addFlashAttribute("success", mensajeFlash);
 		
 		return "redirect:/clientes/listar";
 	}
 	
 	@GetMapping("/form/{id}")
-	public String editar(@PathVariable Long id, Model model) {
+	public String editar(@PathVariable Long id, Model model, RedirectAttributes flash) {
 		
 		Cliente cliente = null;
 		
-		if (id > 0) 
+		if (id > 0)  {
 			cliente = clienteService.findOne(id);
+			if (cliente == null) {
+				flash.addFlashAttribute("error", "El ID del no existe en la BBDD!");
+				return "redirect:/listar";
+			}
+		}
 		
-		else
-			return "redirect:listar";
+		else {
+			flash.addFlashAttribute("error", "El ID del cliente no puede ser cero!");
+			return "redirect:/listar";
+		}
 		
 		model.addAttribute("cliente", cliente);
 		model.addAttribute("titulo", editar_titulo);
@@ -93,17 +117,19 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Long id, Model model) {
+	public String eliminar(@PathVariable Long id, Model model, RedirectAttributes flash) {
 		
 		// Eliminamos cliente de la base de datos
-		if (id > 0)
+		if (id > 0) {
 			clienteService.delete(id);
+			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
+		}
 		
 		// Pasamos los clientes que quedan a la vista
 		model.addAttribute("clientes", clienteService.findAll());
 		model.addAttribute("titulo", listar_titulo);
 		
-		return "redirect:/clientes/listar";
+		return "redirect:/listar";
 		
 	}
 

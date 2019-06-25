@@ -24,8 +24,8 @@
 					<li class="nav-item active"><a class="nav-link" href="#">Home
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{listar}">Clientes</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{form}">Añadir cliente</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Clientes</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/form}">Añadir cliente</a></li>
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
 					<input class="form-control mr-sm-2" type="search"
@@ -34,6 +34,12 @@
 				</form>
 			</div>
 		</nav>
+		
+		<div class="alert alert-success" th:text="${success}" th:if="${success != null}"></div>
+		<div class="alert alert-danger" th:text="${error}" th:if="${error != null}"></div>
+		<div class="alert alert-warning" th:text="${warning}" th:if="${warning != null}"></div>
+		<div class="alert alert-info" th:text="${info}" th:if="${info != null}"></div>
+		
 	</header>
 	
 	<footer th:fragment="footer" class="container"> <!-- Hacemos la plantilla del footer -->
