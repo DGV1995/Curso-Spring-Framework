@@ -49,6 +49,8 @@ public class Cliente implements Serializable {
 	@NotNull // Para los atributos que no sean strings
 	private Date createAt;
 	
+	private String foto;
+	
 	/**
 	@PrePersist // Se ejecuta antes de guardarse en la base de datos
 	public void prePersist() {
@@ -98,6 +100,14 @@ public class Cliente implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 }

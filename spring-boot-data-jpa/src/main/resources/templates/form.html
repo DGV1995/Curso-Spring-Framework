@@ -18,7 +18,7 @@
 					</ul>
 				</div>
 				-->
-				<form th:action="@{/form}" th:object="${cliente}" method="post">
+				<form th:action="@{/form}" th:object="${cliente}" method="post" enctype="multipart/form-data"> <!-- Codificación para poder subir archivos --> 
 					<div class="form-group row">
 						<label class="col-sm-2 <!-- ancho de dos columnas --> col-form-label <!-- texto centrado en la columna -->">Nombre</label>
 						<div class="col-sm-6">
