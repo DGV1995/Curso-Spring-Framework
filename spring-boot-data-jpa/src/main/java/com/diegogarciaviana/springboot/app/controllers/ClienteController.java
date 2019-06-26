@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -39,6 +42,8 @@ public class ClienteController {
 	
 	@Autowired
 	private IClienteService clienteService;
+	
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Value("${listar.title}")
 	private String listar_titulo;
@@ -108,18 +113,24 @@ public class ClienteController {
 		
 		if (!foto.isEmpty()) {
 			
+			String uniqueFilename = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
+			
 			// Ruta donde guardaremos la imagen 
-			String rootPath = "/Users/diegogarcia-viana/Desktop/images/uploads";
+			Path rootPath = Paths.get("uploads").resolve(uniqueFilename); // uploads/nombre.jpg
+			Path rootAbsolutePath = rootPath.toAbsolutePath();
+			
+			log.info("Root Path: " + rootPath);
+			log.info("Absolute root path: " + rootAbsolutePath);
 			
 			try {
-				byte bytes[] = foto.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "/" + foto.getOriginalFilename());
-				// Guardamos la foto subida
-				Files.write(rutaCompleta, bytes);
+				
+				// Guardar imagen en la ruta especificada
+				Files.copy(foto.getInputStream(), rootAbsolutePath);
 				// Mensaje flash
-				flash.addFlashAttribute("info", "Imagen cargada correctamente");
+				flash.addFlashAttribute("info", "Imagen " + uniqueFilename + " cargada correctamente");
 				// Añadimos la foto al cliente en su respectivo atributo
-				cliente.setFoto(foto.getOriginalFilename());
+				cliente.setFoto(uniqueFilename);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
