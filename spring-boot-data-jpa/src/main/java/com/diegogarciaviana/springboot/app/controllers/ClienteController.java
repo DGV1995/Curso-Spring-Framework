@@ -1,6 +1,8 @@
 package com.diegogarciaviana.springboot.app.controllers;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,9 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.diegogarciaviana.springboot.app.models.dao.IClienteDao;
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 import com.diegogarciaviana.springboot.app.models.service.IClienteService;
+import com.diegogarciaviana.springboot.app.models.service.IUploadService;
 import com.diegogarciaviana.springboot.app.util.paginator.PageRender;
 
 @Controller
@@ -42,6 +49,9 @@ public class ClienteController {
 	
 	@Autowired
 	private IClienteService clienteService;
+	
+	@Autowired
+	private IUploadService uploadService;
 	
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -57,6 +67,9 @@ public class ClienteController {
 	@Value("${ver.title}")
 	private String ver_titulo;
 	
+	@Value("${images.path}")
+	private String UPLOADS_FOLDER;
+	
 	@GetMapping("/ver/{id}")
 	public String ver(@PathVariable Long id, Model model, RedirectAttributes flash) {
 		
@@ -71,6 +84,14 @@ public class ClienteController {
 		model.addAttribute("titulo", ver_titulo.concat(cliente.getNombre()));
 		
 		return "ver";
+		
+	}
+	
+	@GetMapping("/uploads/{filename:.+}") // Para que Spring no borre la extensión del archivo
+	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
+		
+		// Muestra la foto del cliente
+		return uploadService.load(filename);
 		
 	}
 	
@@ -111,31 +132,8 @@ public class ClienteController {
 			return "form";
 		}
 		
-		if (!foto.isEmpty()) {
-			
-			String uniqueFilename = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
-			
-			// Ruta donde guardaremos la imagen 
-			Path rootPath = Paths.get("uploads").resolve(uniqueFilename); // uploads/nombre.jpg
-			Path rootAbsolutePath = rootPath.toAbsolutePath();
-			
-			log.info("Root Path: " + rootPath);
-			log.info("Absolute root path: " + rootAbsolutePath);
-			
-			try {
-				
-				// Guardar imagen en la ruta especificada
-				Files.copy(foto.getInputStream(), rootAbsolutePath);
-				// Mensaje flash
-				flash.addFlashAttribute("info", "Imagen " + uniqueFilename + " cargada correctamente");
-				// Añadimos la foto al cliente en su respectivo atributo
-				cliente.setFoto(uniqueFilename);
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
+		// Devolvemos el cliente una vez se le ha añadido la foto
+		cliente = uploadService.subirFoto(cliente, foto, flash);
 		
 		// Definir el mensaje flash en función de si se ha creado un nuevo cliente o se ha editado uno ya existente
 		String mensajeFlash = (cliente.getId() != null)? "Cliente editado con éxito!" : "Cliente creado con éxito!";
@@ -178,8 +176,14 @@ public class ClienteController {
 		
 		// Eliminamos cliente de la base de datos
 		if (id > 0) {
+			
+			Cliente cliente = clienteService.findOne(id);
 			clienteService.delete(id);
+			
 			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
+			
+			uploadService.borrarFoto(cliente, flash);
+			
 		}
 		
 		// Pasamos los clientes que quedan a la vista
