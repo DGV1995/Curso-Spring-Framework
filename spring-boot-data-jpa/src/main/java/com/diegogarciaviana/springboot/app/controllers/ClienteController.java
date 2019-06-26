@@ -107,17 +107,23 @@ public class ClienteController {
 		}
 		
 		if (!foto.isEmpty()) {
-			Path directorioRecursos = Paths.get("src/main/resources/static/uploads");
-			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			
+			// Ruta donde guardaremos la imagen 
+			String rootPath = "/Users/diegogarcia-viana/Desktop/images/uploads";
+			
 			try {
 				byte bytes[] = foto.getBytes();
 				Path rutaCompleta = Paths.get(rootPath + "/" + foto.getOriginalFilename());
+				// Guardamos la foto subida
 				Files.write(rutaCompleta, bytes);
+				// Mensaje flash
 				flash.addFlashAttribute("info", "Imagen cargada correctamente");
+				// Añadimos la foto al cliente en su respectivo atributo
 				cliente.setFoto(foto.getOriginalFilename());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 		}
 		
 		// Definir el mensaje flash en función de si se ha creado un nuevo cliente o se ha editado uno ya existente
