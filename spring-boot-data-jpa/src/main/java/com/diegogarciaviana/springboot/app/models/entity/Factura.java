@@ -24,8 +24,11 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "facturas")
+@Data
 public class Factura implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -37,10 +40,8 @@ public class Factura implements Serializable {
 	@NotEmpty
 	private String descripcion;
 	
-	private String observación;
+	private String observacion;
 	
-	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
 	private Date createAt;
@@ -65,60 +66,12 @@ public class Factura implements Serializable {
 	public Factura() {
 		this.items = new ArrayList<ItemFactura>();
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getObservación() {
-		return observación;
-	}
-
-	public void setObservación(String observación) {
-		this.observación = observación;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-	public List<ItemFactura> getItems() {
-		return items;
-	}
-
-	public void setItems(List<ItemFactura> items) {
-		this.items = items;
-	}
 	
 	public void addItem(ItemFactura item) {
 		items.add(item);
 	}
 
-	public Double calcularImporte() {
+	public Double getTotal() {
 		
 		Double total = 0.0;
 		

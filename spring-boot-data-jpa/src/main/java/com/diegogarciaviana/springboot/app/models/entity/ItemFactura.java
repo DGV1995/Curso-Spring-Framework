@@ -11,8 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "facturas_items")
+@Data
 public class ItemFactura implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,30 +35,6 @@ public class ItemFactura implements Serializable {
 	
 	public ItemFactura(Producto producto, int cantidad) {
 		this.producto = producto;
-		this.cantidad = cantidad;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
-
-	public Integer getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
 

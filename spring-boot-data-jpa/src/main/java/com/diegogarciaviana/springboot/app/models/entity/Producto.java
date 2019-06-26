@@ -13,8 +13,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "productos")
+@Data
 public class Producto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -37,22 +40,6 @@ public class Producto implements Serializable {
 	
 	public Producto(String nombre, Double precio) {
 		this.nombre = nombre;
-		this.precio = precio;
-	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public Double getPrecio() {
-		return precio;
-	}
-	
-	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 
