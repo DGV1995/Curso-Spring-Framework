@@ -18,3 +18,15 @@ insert into CLIENTES (nombre, apellido, email, create_at, foto) values ('Víctor
 insert into CLIENTES (nombre, apellido, email, create_at, foto) values ('Carlos', 'De Diego', 'carlosdediego@correo.com', '1993-01-01', '')
 insert into CLIENTES (nombre, apellido, email, create_at, foto) values ('Ángela', 'García', 'angelagarcia@correo.com', '1992-05-28', '')
 insert into CLIENTES (nombre, apellido, email, create_at, foto) values ('Javier', 'Álvarez', 'javieralvarez@correo.com', '1995-11-05', '')
+
+insert into productos (nombre, precio, create_at) values ('Samsung Galaxy S10', 800, NOW());
+insert into productos (nombre, precio, create_at) values ('Iphone XS', 1000, NOW());
+insert into productos (nombre, precio, create_at) values ('OnePlus 7', 600, NOW());
+insert into productos (nombre, precio, create_at) values ('Razer Deathader Elite', 99, NOW());
+insert into productos (nombre, precio, create_at) values ('Samsung TV 32"', 350, NOW());
+insert into productos (nombre, precio, create_at) values ('Google Chromecast 2', 39, NOW());
+insert into productos (nombre, precio, create_at) values ('God of War PS4', 45, NOW());
+insert into productos (nombre, precio, create_at) values ('Th Witcher 3: Wild Hunt GOTY', 25, NOW());
+insert into productos (nombre, precio, create_at) values ('Ipad Pro 2019', 800, NOW());
+insert into productos (nombre, precio, create_at) values ('Nikon D5300', 500, NOW());
+insert into productos (nombre, precio, create_at) values ('Xiami MiPad 4', 250, NOW());
