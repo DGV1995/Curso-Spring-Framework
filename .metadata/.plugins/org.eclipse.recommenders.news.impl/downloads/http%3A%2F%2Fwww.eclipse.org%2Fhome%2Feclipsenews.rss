@@ -10,6 +10,38 @@
       <link>http://www.eclipse.org</link>
     </image>
     <item>
+      <title><![CDATA[Eclipse ioFog: Evolving Toward Native Kubernetes Orchestration at the Edge]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/mike-milinkovich/eclipse-iofog-evolving-toward-native-kubernetes-orchestration-edge]]></link>
+      <description><![CDATA[The Eclipse Foundation is excited to support today's announcement of the initial availability of Eclipse ioFog features that make any Kubernetes distribution edge-aware.]]></description>
+      <pubDate>Mon, 24 Jun 2019 13:00:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
+      <title><![CDATA[Become a Sponsor at EclipseCon Europe 2019!]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/jameka-woodberry/become-sponsor-eclipsecon-europe-2019]]></link>
+      <description><![CDATA[We're gearing up for EclipseCon Europe 2019, our biggest event of the year which brings together developers, architects, and open source business leaders.]]></description>
+      <pubDate>Fri, 21 Jun 2019 11:00:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
+      <title><![CDATA[Update for Jakarta EE community: June 2019]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/tanja-obradovic/update-jakarta-ee-community-june-2019]]></link>
+      <description><![CDATA[Get the latest monthly email update on the Jakarta EE community from news highlights to various meetings and events related to the platform!]]></description>
+      <pubDate>Thu, 20 Jun 2019 12:05:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
+      <title><![CDATA[Eclipse Individual Committer Agreement 4.0 Update]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/sharon-corbett/eclipse-individual-committer-agreement-40-update]]></link>
+      <description><![CDATA[On June 13th, we retired all versions of the  Eclipse Individual Committer Agreement (ICA) prior to version 4.0. Update yours today!]]></description>
+      <pubDate>Mon, 17 Jun 2019 09:05:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
       <title><![CDATA[2019 Annual Eclipse Foundation Community Report]]></title>
       <link><![CDATA[https://www.eclipse.org/org/foundation/reports/annual_report.php]]></link>
       <description><![CDATA[Read the eighth annual Eclipse Foundation Community Report! Comments and feedback on the style and content are welcome!]]></description>

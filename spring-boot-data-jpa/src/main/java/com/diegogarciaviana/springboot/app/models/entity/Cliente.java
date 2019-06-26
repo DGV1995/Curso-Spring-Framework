@@ -21,7 +21,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "clientes") // Para configurar el nombre de la tabla
+@Table(name = "clientes") // Para configurar el nombre de la tabla ==> Clientes
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -1,5 +1,10 @@
 package com.diegogarciaviana.springboot.app.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.diegogarciaviana.springboot.app.models.dao.IClienteDao;
@@ -42,6 +48,26 @@ public class ClienteController {
 	
 	@Value("${editar.title}")
 	private String editar_titulo;
+	
+	@Value("${ver.title}")
+	private String ver_titulo;
+	
+	@GetMapping("/ver/{id}")
+	public String ver(@PathVariable Long id, Model model, RedirectAttributes flash) {
+		
+		Cliente cliente = clienteService.findOne(id);
+		
+		if (cliente == null) {
+			flash.addAttribute("error", "El cliente no existe en la base de datos");
+			return "redirect:/listar";
+		}
+		
+		model.addAttribute("cliente", cliente);
+		model.addAttribute("titulo", ver_titulo.concat(cliente.getNombre()));
+		
+		return "ver";
+		
+	}
 	
 	@GetMapping("/listar")
 	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
@@ -73,11 +99,25 @@ public class ClienteController {
 	
 	@PostMapping("/form")
 	/** Con el decorador @Valid nos aseguramos de que el objecto Cliente tenga un formato válido (acorde a los requisitos configurados en la clase Cliente) **/
-	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes flash, SessionStatus status) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, @RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", formulario_titulo);
 			return "form";
+		}
+		
+		if (!foto.isEmpty()) {
+			Path directorioRecursos = Paths.get("src/main/resources/static/uploads");
+			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			try {
+				byte bytes[] = foto.getBytes();
+				Path rutaCompleta = Paths.get(rootPath + "/" + foto.getOriginalFilename());
+				Files.write(rutaCompleta, bytes);
+				flash.addFlashAttribute("info", "Imagen cargada correctamente");
+				cliente.setFoto(foto.getOriginalFilename());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		// Definir el mensaje flash en función de si se ha creado un nuevo cliente o se ha editado uno ya existente
@@ -88,7 +128,7 @@ public class ClienteController {
 		
 		flash.addFlashAttribute("success", mensajeFlash);
 		
-		return "redirect:/clientes/listar";
+		return "redirect:/listar";
 	}
 	
 	@GetMapping("/form/{id}")
