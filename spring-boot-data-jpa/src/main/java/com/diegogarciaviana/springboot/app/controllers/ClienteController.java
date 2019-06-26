@@ -1,12 +1,5 @@
 package com.diegogarciaviana.springboot.app.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -15,32 +8,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.diegogarciaviana.springboot.app.models.dao.IClienteDao;
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 import com.diegogarciaviana.springboot.app.models.service.IClienteService;
-import com.diegogarciaviana.springboot.app.models.service.IUploadService;
+import com.diegogarciaviana.springboot.app.models.service.IUploadFileService;
 import com.diegogarciaviana.springboot.app.util.paginator.PageRender;
 
 @Controller
@@ -51,7 +37,7 @@ public class ClienteController {
 	private IClienteService clienteService;
 	
 	@Autowired
-	private IUploadService uploadService;
+	private IUploadFileService uploadFileService;
 	
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -91,7 +77,7 @@ public class ClienteController {
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
 		
 		// Muestra la foto del cliente
-		return uploadService.load(filename);
+		return uploadFileService.load(filename);
 		
 	}
 	
@@ -133,7 +119,7 @@ public class ClienteController {
 		}
 		
 		// Devolvemos el cliente una vez se le ha añadido la foto
-		cliente = uploadService.subirFoto(cliente, foto, flash);
+		cliente = uploadFileService.subirFoto(cliente, foto, flash);
 		
 		// Definir el mensaje flash en función de si se ha creado un nuevo cliente o se ha editado uno ya existente
 		String mensajeFlash = (cliente.getId() != null)? "Cliente editado con éxito!" : "Cliente creado con éxito!";
@@ -182,7 +168,7 @@ public class ClienteController {
 			
 			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
 			
-			uploadService.borrarFoto(cliente, flash);
+			uploadFileService.borrarFoto(cliente.getFoto(), flash);
 			
 		}
 		

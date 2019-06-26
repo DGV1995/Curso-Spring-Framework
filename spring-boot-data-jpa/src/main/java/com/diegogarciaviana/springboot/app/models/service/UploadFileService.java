@@ -16,13 +16,14 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 
 @Service
-public class UploadService implements IUploadService{
+public class UploadFileService implements IUploadFileService{
 	
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -96,21 +97,31 @@ public class UploadService implements IUploadService{
 	}
 	
 	@Override
-	public void borrarFoto(Cliente cliente, RedirectAttributes flash) {
+	public void borrarFoto(String filename, RedirectAttributes flash) {
 		
 		// Eliminamos la foto del cliente del directorio 'uploads'
-		Path pathFoto = Paths.get(UPLOADS_FOLDER).resolve(cliente.getFoto()).toAbsolutePath();
+		Path pathFoto = getPath(filename);
 		File archivo = pathFoto.toFile();
 					
 		if (archivo.exists() && archivo.canRead()) {
 			if (archivo.delete())
-				flash.addFlashAttribute("info", "Se ha eliminado la imagen ".concat(cliente.getFoto()));
+				flash.addFlashAttribute("info", "Se ha eliminado la imagen ".concat(filename));
 		}
 		
 	}
 	
 	public Path getPath(String filename) {
 		return Paths.get(UPLOADS_FOLDER).resolve(filename).toAbsolutePath();
+	}
+
+	@Override
+	public void deleteAll() {
+		FileSystemUtils.deleteRecursively(Paths.get(UPLOADS_FOLDER).toFile());
+	}
+
+	@Override
+	public void init() throws IOException {
+		Files.createDirectory(Paths.get(UPLOADS_FOLDER));
 	}
 
 }
