@@ -1,5 +1,7 @@
 package com.diegogarciaviana.springboot.app.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 import com.diegogarciaviana.springboot.app.models.entity.Factura;
+import com.diegogarciaviana.springboot.app.models.entity.Producto;
 import com.diegogarciaviana.springboot.app.models.service.IClienteService;
 import com.diegogarciaviana.springboot.app.models.service.IFacturaService;
 
@@ -79,6 +83,11 @@ public class FacturaController {
 		
 		return "redirect:/listar";
 		
+	}
+	
+	@GetMapping(value = "/cargar-productos/{name}", produces = {"application/json"})
+	public @ResponseBody List<Producto> cargarProductos(@PathVariable String name) {
+		return clienteService.findByName(name);
 	}
 
 }

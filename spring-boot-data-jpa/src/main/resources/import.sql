@@ -26,7 +26,7 @@ insert into productos (nombre, precio, create_at) values ('Razer Deathader Elite
 insert into productos (nombre, precio, create_at) values ('Samsung TV 32"', 350, NOW());
 insert into productos (nombre, precio, create_at) values ('Google Chromecast 2', 39, NOW());
 insert into productos (nombre, precio, create_at) values ('God of War PS4', 45, NOW());
-insert into productos (nombre, precio, create_at) values ('Th Witcher 3: Wild Hunt GOTY', 25, NOW());
+insert into productos (nombre, precio, create_at) values ('The Witcher 3: Wild Hunt GOTY', 25, NOW());
 insert into productos (nombre, precio, create_at) values ('Ipad Pro 2019', 800, NOW());
 insert into productos (nombre, precio, create_at) values ('Nikon D5300', 500, NOW());
 insert into productos (nombre, precio, create_at) values ('Xiami MiPad 4', 250, NOW());
