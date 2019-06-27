@@ -27,14 +27,33 @@
 					});
 				},
 			
-				select: function(event, ui) {
-					$("#buscar_producto").val(ui.item.label); // Pasamos el nombre del producto al elemento con id 'buscar_producto'
+				select: function(event, ui) { // Se ejecuta cuando seleccionamos el producto en el buscador
+					//$("#buscar_producto").val(ui.item.label); // Pasamos el nombre del producto al elemento con id 'buscar_producto'
+					
+					var linea = $("#plantillaItemsFactura").html(); // Obtiene el contenido html de deste elemento a través del ID
+					
+					// Cambiamos los parámetros del contenido obtenido por los valores obtenidos en el success
+					linea = linea.replace(/{ID}/g, ui.item.value);
+					linea = linea.replace(/{NOMBRE}/g, ui.item.label);
+					linea = linea.replace(/{PRECIO}/g, ui.item.precio);
+					
+					// Agregamos la línea al tbody de la tabla
+					$("#cargarItemProductos tbody").append(linea);
+					
+					itemsHelper.calcularImporte(ui.item.value, ui.item.precio, 1);
+					
 					return false;
 				}
 				
 			});
 			
 		});
+		
+		var itemsHelper = {
+			calcularImporte: function(id, precio, cantidad) {
+				$("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
+			}	
+		}
 	
 	</script>
 </body>
