@@ -52,8 +52,7 @@ public class Factura implements Serializable {
 	 * necesitan a la factura
 	 **/
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "factura_id") // Importante para generar la llave foránea 'factura_id' en la tabla
-										// FACTURA_ITEMS
+	@JoinColumn(name = "factura_id") // Importante para generar la llave foránea 'factura_id' en la tabla FACTURA_ITEMS
 	private List<ItemFactura> items;
 
 	// Se ejecuta antes de guardarse en la base de datos
@@ -114,17 +113,13 @@ public class Factura implements Serializable {
 		this.items = items;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public void addItem(ItemFactura item) {
 		items.add(item);
 	}
 
-	public Double getTotal() {
+	public Double calcularTotal() {
 		Double total = 0.0;
-		for (ItemFactura item : items) {
+		for (ItemFactura item : this.getItems()) {
 			total += item.calcularImporte();
 		}
 		return total;

@@ -34,11 +34,6 @@ public class Producto implements Serializable {
 	public void prePersist() {
 		this.createAt = new Date();
 	}
-	
-	public Producto(String nombre, Double precio) {
-		this.nombre = nombre;
-		this.precio = precio;
-	}
 
 	public Long getId() {
 		return id;

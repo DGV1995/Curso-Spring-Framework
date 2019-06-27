@@ -32,11 +32,16 @@ insert into productos (nombre, precio, create_at) values ('Nikon D5300', 500, NO
 insert into productos (nombre, precio, create_at) values ('Xiami MiPad 4', 250, NOW());
 
 insert into facturas (descripcion, observacion, cliente_id, create_at) values ('Factura equipos de oficina', null, 1, NOW());
-insert into facturas (descripcion, observacion, cliente_id, create_at) values ('Factura de tecnología', 'Se han comprado muchas cosas', 1, NOW());
+insert into facturas (descripcion, observacion, cliente_id, create_at) values ('Factura de tecnología', 'Se han comprado muchas cosas', 2, NOW());
 
 insert into facturas_items (cantidad, factura_id, producto_id) values (1, 1, 1);
 insert into facturas_items (cantidad, factura_id, producto_id) values (2, 1, 4);
 insert into facturas_items (cantidad, factura_id, producto_id) values (1, 1, 5);
 insert into facturas_items (cantidad, factura_id, producto_id) values (1, 1, 7);
 insert into facturas_items (cantidad, factura_id, producto_id) values (3, 2, 6);
+insert into facturas_items (cantidad, factura_id, producto_id) values (2, 2, 1);
+insert into facturas_items (cantidad, factura_id, producto_id) values (2, 2, 4);
+insert into facturas_items (cantidad, factura_id, producto_id) values (6, 1, 5);
+insert into facturas_items (cantidad, factura_id, producto_id) values (4, 2, 7);
+insert into facturas_items (cantidad, factura_id, producto_id) values (1, 2, 2);
 

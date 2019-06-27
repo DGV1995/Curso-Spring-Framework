@@ -29,11 +29,6 @@ public class ItemFactura implements Serializable {
 	private Producto producto;
 
 	private Integer cantidad;
-	
-	public ItemFactura(Producto producto, int cantidad) {
-		this.producto = producto;
-		this.cantidad = cantidad;
-	}
 
 	public Long getId() {
 		return id;
