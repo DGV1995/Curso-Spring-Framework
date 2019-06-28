@@ -54,6 +54,10 @@
 							<a th:href="@{/listar}" class="btn btn-danger btn-xs" th:text="'&laquo Volver'"></a>
 						</div>
 					</div>
+					
+					<input type="hidden" field="*{id}"/>
+					<input type="hidden" field="*{factura.cliente.id}"/>
+					
 				</form>
 			</div>
 		</div>
@@ -61,6 +65,7 @@
 	
 	<footer th:replace="layout/layout :: footer"></footer>
 	
+	<!-- Script de autocompletado definido en 'autocomplete-productos.html' -->
 	<script th:replace="factura/js/autocomplete-productos :: javascript"></script>
 	
 </body>

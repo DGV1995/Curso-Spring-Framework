@@ -30,6 +30,11 @@
 				select: function(event, ui) { // Se ejecuta cuando seleccionamos el producto en el buscador
 					//$("#buscar_producto").val(ui.item.label); // Pasamos el nombre del producto al elemento con id 'buscar_producto'
 					
+					if (itemsHelper.hasProducto(ui.item.value)) {
+						itemsHelper.incrementaCantidad(ui.item.value, ui.item.precio);
+						return false;
+					}
+					
 					var linea = $("#plantillaItemsFactura").html(); // Obtiene el contenido html de deste elemento a través del ID
 					
 					// Cambiamos los parámetros del contenido obtenido por los valores obtenidos en el success
@@ -52,9 +57,27 @@
 		
 		// Objeto json que contiene distintas funciones a las que podemos acceder
 		var itemsHelper = {
+				
 			calcularImporte: function(id, precio, cantidad) {
 				$("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
-			}	
+			},
+			
+			hasProducto: function(id) {
+				var resultado = false;
+				$('input[name="item_id[]"]').each(function() {
+					if (parseInt(id) == parseInt($(this).val()))
+						resultado = true;
+				})
+				return resultado;
+			},
+			
+			incrementaCantidad: function(id, precio) {
+				// Si existe cantidad se le asigna su valor a la variable cantidad. En caso contrario, se le asigna el valor 0
+				var cantidad = $("#cantidad_"+ id).val() ? parseInt($("#cantidad_" + id).val()) : 0;
+				$("#cantidad_"+ id).val(++cantidad);
+				this.calcularImporte(id, precio, cantidad);
+			}
+
 		}
 	
 	</script>
