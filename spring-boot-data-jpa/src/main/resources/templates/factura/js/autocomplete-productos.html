@@ -48,10 +48,17 @@
 					// Utilizamos la función calcularImporte de la variable itemsHelper
 					itemsHelper.calcularImporte(ui.item.value, ui.item.precio, 1);
 					
+					itemsHelper.calcularGranTotal();
+					
 					return false;
 				}
 				
 			});
+			
+			$("form").submit(function() {
+				$("#plantillaItemsFactura").remove();
+				return;
+			})
 			
 		});
 		
@@ -60,6 +67,7 @@
 				
 			calcularImporte: function(id, precio, cantidad) {
 				$("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
+				this.calcularGranTotal();
 			},
 			
 			hasProducto: function(id) {
@@ -76,6 +84,19 @@
 				var cantidad = $("#cantidad_"+ id).val() ? parseInt($("#cantidad_" + id).val()) : 0;
 				$("#cantidad_"+ id).val(++cantidad);
 				this.calcularImporte(id, precio, cantidad);
+			},
+			
+			eliminarLineaFactura: function(id) {
+				$("#row_" + id).remove();
+				this.calcularGranTotal();
+			},
+			
+			calcularGranTotal: function() {
+				var total = 0;
+				$("span[id^='total_importe_']").each(function() {
+					total += parseInt($(this).html());
+				})
+				$("#gran_total").html(total);
 			}
 
 		}

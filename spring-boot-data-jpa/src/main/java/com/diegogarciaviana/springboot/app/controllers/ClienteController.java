@@ -25,7 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
+import com.diegogarciaviana.springboot.app.models.entity.Factura;
 import com.diegogarciaviana.springboot.app.models.service.IClienteService;
+import com.diegogarciaviana.springboot.app.models.service.IFacturaService;
 import com.diegogarciaviana.springboot.app.models.service.IUploadFileService;
 import com.diegogarciaviana.springboot.app.util.paginator.PageRender;
 
@@ -38,6 +40,9 @@ public class ClienteController {
 	
 	@Autowired
 	private IUploadFileService uploadFileService;
+	
+	@Autowired
+	private IFacturaService facturaService;
 	
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
