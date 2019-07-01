@@ -1,5 +1,7 @@
 package com.diegogarciaviana.springboot.app.models.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,12 @@ public class FacturaServiceImpl implements IFacturaService {
 	@Override
 	public void save(Factura factura) {
 		facturaDao.save(factura);
+	}
+	
+	@Override
+	@Transactional
+	public void delete(Factura factura) {
+		facturaDao.delete(factura);
 	}
 
 }

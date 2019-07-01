@@ -30,6 +30,7 @@
 							<th>Fecha</th>
 							<th>Total</th>
 							<th>Factura</th>
+							<th>Borrar factura</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -39,12 +40,14 @@
 							<td th:text="${factura.createAt}"></td>
 							<td th:text="${factura.calcularTotal()}"></td>
 							<td><a th:href="@{/factura/ver/} + ${factura.id}" class="btn btn-primary btn-xs">Ver factura</a></td>
+							<td><a th:href="@{/factura/borrar/} + ${factura.id}" class="btn btn-danger btn-xs" onclick="return confirm('¿Estás seguro?');">Borrar</a></td>
 						</tr>
 					</tbody>
 				</table>
 				
 				<div>
 					<a th:href="@{/factura/form/} + ${cliente.id}" class="btn btn-success btn-xs">Nueva factura</a>
+					<a th:href="@{/listar}" th:text="'&laquo Volver'" class="btn btn-secondary btn-xs"></a>
 				</div>
 								
 			</div>

@@ -44,7 +44,7 @@ public class Factura implements Serializable {
 	private Date createAt;
 
 	// Muchas facturas para un cliente
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 
 	/**

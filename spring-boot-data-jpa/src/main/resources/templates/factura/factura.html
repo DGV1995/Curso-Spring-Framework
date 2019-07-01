@@ -7,8 +7,17 @@
 	
 	<div class="container py-4">
 		<div class="card bg-light">
-			<div class="card-header" th:text="${factura.descripcion}"></div>
+			<div class="card-header" th:text="${titulo + ' &raquo ' + factura.descripcion}"></div>
 			<div class="card-body">
+				<ul class="list-group my-3">
+					<li class="list-group-item list-group-item-success" th:text="'Cliente: ' + ${factura.cliente.nombre + ' ' + factura.cliente.apellido}"></li>
+					<li class="list-group-item" th:text="'Email: ' + ${factura.cliente.email}"></li>
+				</ul>
+				<ul class="list-group my-3">
+					<li class="list-group-item list-group-item-primary" th:text="'ID factura: ' + ${factura.id}"></li>
+					<li class="list-group-item" th:text="'Descripción: ' + ${factura.descripcion}"></li>
+					<li class="list-group-item" th:text="'Fecha de creación: ' + ${factura.createAt}"></li>
+				</ul>
 				<table class="table table-bordered table-striped">
 					<thead class="thead-inverse">
 						<tr>
@@ -27,6 +36,10 @@
 						</tr>
 					</tbody>
 				</table>
+				<h5 class="float-right">
+					Gran total: <span th:text="${factura.calcularTotal()}" class="badge badge-secondary"></span>
+				</h5>
+				<div><a th:href="@{/ver/} + ${factura.cliente.id}" class="btn btn-secondary btn-xs" th:text="'&laquo Volver'"></a></div>
 			</div>
 		</div>
 	</div>

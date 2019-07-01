@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.boot.CommandLineRunner"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="org.springframework.util.FileSystemUtils"/>
 <fullyQualifiedTypeName name="java.nio.file.Files"/>
@@ -53,11 +52,12 @@
 <fullyQualifiedTypeName name="com.diegogarciaviana.springboot.app.models.entity.Producto"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
 <fullyQualifiedTypeName name="com.diegogarciaviana.springboot.app.models.dao.IFacturaDao"/>
-<fullyQualifiedTypeName name="com.diegogarciaviana.springboot.app.models.service.IFacturaService"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 <fullyQualifiedTypeName name="com.diegogarciaviana.springboot.app.models.entity.ItemFactura"/>
 <fullyQualifiedTypeName name="com.diegogarciaviana.springboot.app.models.entity.Factura"/>
 <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
 <fullyQualifiedTypeName name="org.slf4j.Logger"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.SessionAttribute"/>
+<fullyQualifiedTypeName name="com.diegogarciaviana.springboot.app.models.service.IFacturaService"/>
+<fullyQualifiedTypeName name="javax.transaction.Transactional"/>
 </qualifiedTypeNameHistroy>

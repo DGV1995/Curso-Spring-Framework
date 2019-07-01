@@ -18,7 +18,8 @@
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Descripción</label>
 						<div class="col-sm-6">
-							<input type="text" th:field="*{descripcion}" class="form-control"/>
+							<input type="text" th:field="*{descripcion}" class="form-control" th:errorclass="'form-control is-invalid'"/>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -53,7 +54,7 @@
 					
 					<div class="form-group row">
 						<div class="col-sm-6">
-							<input type="submit" class="btn btn-success btn-xs" th:value="${titulo}"/>
+							<input type="submit" class="btn btn-success btn-xs" th:value="Crear"/>
 							<a th:href="@{/listar}" class="btn btn-danger btn-xs" th:text="'&laquo Volver'"></a> <!-- Símbolo de flecha en Volver -->
 						</div>
 					</div>
