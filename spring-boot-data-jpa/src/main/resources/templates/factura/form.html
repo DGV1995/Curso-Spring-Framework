@@ -54,12 +54,11 @@
 					<div class="form-group row">
 						<div class="col-sm-6">
 							<input type="submit" class="btn btn-success btn-xs" th:value="${titulo}"/>
-							<a th:href="@{/listar}" class="btn btn-danger btn-xs" th:text="'&laquo Volver'"></a>
+							<a th:href="@{/listar}" class="btn btn-danger btn-xs" th:text="'&laquo Volver'"></a> <!-- Símbolo de flecha en Volver -->
 						</div>
 					</div>
 					
 					<input type="hidden" field="*{id}"/>
-					<!--<input type="hidden" field="*{factura.cliente.id}"/>-->
 					
 				</form>
 			</div>
