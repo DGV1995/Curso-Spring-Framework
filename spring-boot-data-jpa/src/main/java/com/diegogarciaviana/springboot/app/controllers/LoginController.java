@@ -26,14 +26,5 @@ public class LoginController {
 		return "login";
 		
 	}
-	
-	@GetMapping("/logout")
-	public String logout(Model model, RedirectAttributes flash) {
-		
-		flash.addFlashAttribute("success", "Sesión cerrada con éxito");
-		
-		return "redirect:/";
-		
-	}
 
 }

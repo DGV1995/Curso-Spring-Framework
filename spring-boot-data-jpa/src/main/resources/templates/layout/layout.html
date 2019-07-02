@@ -26,19 +26,18 @@
 							<span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Clientes</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/form}">Añadir cliente</a></li>
 				</ul>
 				<ul class="navbar-nav navbar-right">
 					<!-- Mostrará el botón de sign in cuando no haya una sesión iniciada -->
 					<li sec:authorize="not isAuthenticated()"><a th:href="@{/login}" class="btn btn-outline-success">Sign in</a></li>
 					<li sec:authorize="isAuthenticated()" class="dropdown show">
-					  <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					  <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    <span sec:authentication="name"></span>
 					  </a>
 					
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					    <form id="logoutForm" th:action="@{/logout}" method="post">
-					    	<button onclick="$(#logoutForm)">Sign out</button>
+					    	<button class="dropdown-item" onclick="document.getElementById('logoutForm').submit();" type="submit">Sign out</button>
 					    </form>
 					  </div>
 					</li>
