@@ -39,7 +39,7 @@
 							<td th:text="${factura.descripcion}"></td>
 							<td th:text="${factura.createAt}"></td>
 							<td th:text="${factura.calcularTotal()}"></td>
-							<td><a th:href="@{/factura/ver/} + ${factura.id}" class="btn btn-primary btn-xs">Ver factura</a></td>
+							<td><a th:href="@{/factura/ver/} + ${factura.id}" class="btn btn-primary btn-xs">Detalle</a></td>
 							<td><a th:href="@{/factura/borrar/} + ${factura.id}" class="btn btn-danger btn-xs" onclick="return confirm('¿Estás seguro?');">Borrar</a></td>
 						</tr>
 					</tbody>

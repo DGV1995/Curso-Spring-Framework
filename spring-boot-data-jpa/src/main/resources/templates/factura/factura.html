@@ -21,16 +21,16 @@
 				<table class="table table-bordered table-striped">
 					<thead class="thead-inverse">
 						<tr>
-							<th>ID Producto</th>
 							<th>Producto</th>
+							<th>Precio</th>
 							<th>Cantidad</th>
 							<th>Total</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="item: ${factura.items}">
-							<td th:text="${item.producto.id}"></td>	
 							<td th:text="${item.producto.nombre}"></td>
+							<td th:text="${item.producto.precio}"></td>
 							<td th:text="${item.cantidad}"></td>
 							<td th:text="${item.calcularImporte()}"></td>
 						</tr>
