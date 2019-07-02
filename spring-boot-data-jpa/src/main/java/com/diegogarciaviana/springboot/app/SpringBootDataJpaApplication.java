@@ -17,6 +17,7 @@ public class SpringBootDataJpaApplication implements CommandLineRunner {
 		SpringApplication.run(SpringBootDataJpaApplication.class, args);
 	}
 
+	// De esta forma nos aseguramos de que se borren las imágenes cada vez que se inicia la aplicación
 	@Override
 	public void run(String... args) throws Exception {
 		uploadFileService.deleteAll();

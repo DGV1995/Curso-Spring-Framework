@@ -9,5 +9,7 @@ public interface IFacturaService {
 	public void save(Factura factura);
 	
 	public void delete(Factura factura);
+	
+	public Factura fetchFacturaByIdWithClienteWithItemFacturaWithProducto(Long id);
 
 }

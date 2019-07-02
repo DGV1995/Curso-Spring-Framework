@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.diegogarciaviana.springboot.app.models.entity.Cliente;
 
 @Service
-public class UploadFileService implements IUploadFileService{
+public class UploadFileServiceImpl implements IUploadFileService{
 	
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
