@@ -87,7 +87,7 @@ public class ClienteController {
 		
 	}
 	
-	@GetMapping("/listar")
+	@GetMapping({"/listar", "/"})
 	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
 		
 		// Creamos objeto Pegeable ==> implementa la paginación

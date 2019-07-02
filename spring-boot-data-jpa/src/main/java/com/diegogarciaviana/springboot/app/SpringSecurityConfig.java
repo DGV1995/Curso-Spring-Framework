@@ -32,23 +32,27 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		// Configuramos el builder en memoria y creamos dos usuarios
 		builder.inMemoryAuthentication()
-										.withUser(users.username("admin").password("12345").roles("ADMIN", "USER"))
-										.withUser(users.username("diegogv95").password("diego").roles("USER"));
+										.withUser(users.username("admin").password("12345").roles("ADMIN", "USER")) // Administrador (acceso completo) y, además, usuario (permisos restringidos)
+										.withUser(users.username("diegogv95").password("diego").roles("USER")); // Solo usuario (permisos restringidos)
 		
 	}
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		
-		// Asignar rutas
+		// Asignar rutas autorizadas y no autorizadas
 		http.authorizeRequests()
-						.antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar").permitAll() // Páginas sin autenticación
+						.antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar").permitAll() // Páginas sin autenticación, puede entrar cualquier usuario sin autenticarse
 						.antMatchers("/ver/**").hasAnyRole("USER")
 						.antMatchers("/uploads/**").hasAnyRole("USER")
-						.antMatchers("/form/**").hasAnyRole("ADMIN")
-						.antMatchers("/eliminar/**").hasAnyRole("ADMIN")
-						.antMatchers("/factura/**").hasAnyRole("ADMIN")
-						.anyRequest().authenticated();
+						.antMatchers("/form/**").hasAnyRole("ADMIN") // Solo ADMIN
+						.antMatchers("/eliminar/**").hasAnyRole("ADMIN") // Solo ADMIN
+						.antMatchers("/factura/**").hasAnyRole("ADMIN") // Solo ADMIN
+						.anyRequest().authenticated()
+						.and()
+						.formLogin().loginPage("/login").permitAll()// Implementamos formulario de login
+						.and()
+						.logout().permitAll(); 
 		
 	}
 
