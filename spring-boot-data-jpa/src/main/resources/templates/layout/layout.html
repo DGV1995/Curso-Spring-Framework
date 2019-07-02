@@ -37,8 +37,8 @@
 					  </a>
 					
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					    <form th:action="@{/logout}" method="post">
-					    	
+					    <form id="logoutForm" th:action="@{/logout}" method="post">
+					    	<button onclick="$(#logoutForm)">Sign out</button>
 					    </form>
 					  </div>
 					</li>
