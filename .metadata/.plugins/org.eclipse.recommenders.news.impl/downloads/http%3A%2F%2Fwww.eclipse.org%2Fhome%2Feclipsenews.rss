@@ -9,6 +9,22 @@
       <title>eclipse.org</title>
       <link>http://www.eclipse.org</link>
     </image>
+     <item>
+      <title><![CDATA[The Eclipse IoT Newsletter is out!]]></title>
+      <link><![CDATA[https://mailchi.mp/18324dc88d65/eclipse-iot-newsletter-june-2019]]></link>
+      <description><![CDATA[Welcome to the second issue of the Eclipse IoT Newsletter for 2019, a newsletter tailored to share Eclipse IoT community and industry news.]]></description>
+      <pubDate>Thu, 27 Jun 2019 11:25:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+     <item>
+      <title><![CDATA[Eclipse Newsletter: First Look at Eclipse IDE 2019-06]]></title>
+      <link><![CDATA[https://www.eclipse.org/community/eclipse_newsletter/2019/june/]]></link>
+      <description><![CDATA[This month the Eclipse Newsletter features the Eclipse IDE 2019-06, which is now available for download!]]></description>
+      <pubDate>Thu, 27 Jun 2019 09:00:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
     <item>
       <title><![CDATA[Eclipse ioFog: Evolving Toward Native Kubernetes Orchestration at the Edge]]></title>
       <link><![CDATA[https://blogs.eclipse.org/post/mike-milinkovich/eclipse-iofog-evolving-toward-native-kubernetes-orchestration-edge]]></link>
